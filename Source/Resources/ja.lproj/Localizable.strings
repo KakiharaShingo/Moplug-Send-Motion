@@ -1,0 +1,39 @@
+/* 
+  Localizable.strings
+  Moplug-Send-Motion
+
+  Created by shingo on 2024/10/30.
+  
+*/
+
+"Moplug Send Motion" = "Moplug Send Motion";
+"Send FCPXML to Motion" = "FCPXMLをMotionに送信";
+"Select File" = "ファイルを選択";
+"Quit" = "終了";
+"Ready to Send to Motion" = "Motionに送信準備完了";
+"File: %@" = "ファイル: %@";
+"Continue" = "続ける";
+"Cancel" = "キャンセル";
+"File not found: %@" = "ファイルが見つかりません: %@";
+"Unsupported file type: %@" = "サポートされていないファイルタイプです: %@";
+"Failed to encode XML" = "XMLのエンコードに失敗しました";
+"Created output directory: %@" = "出力ディレクトリを作成しました: %@";
+"Saved FCPXML: %@" = "FCPXMLを保存しました: %@";
+"Deleted temporary MOV file: %@" = "一時MOVファイルを削除しました: %@";
+"Created Motion project: %@" = "Motionプロジェクトを作成しました: %@";
+"Failed to process FCPXML" = "FCPXMLの処理に失敗しました";
+"Error: %@\n\nSee Console.app for details." = "エラー: %@\n\n詳細はコンソール.appで確認してください。";
+"OK" = "OK";
+"Show Log" = "ログを表示";
+"macOS blocked automation. Allow \"Moplug Send Motion\" to control Motion in System Settings > Privacy & Security > Automation, then try again." = "macOSが自動化をブロックしました。システム設定 > プライバシーとセキュリティ > オートメーションで「Moplug Send Motion」にMotionの制御を許可してから、もう一度お試しください。";
+"Failed to open Motion: %@" = "Motionを開けませんでした: %@";
+"Motion app not found. Please install Motion." = "Motionアプリが見つかりません。Motionをインストールしてください。";
+"Notification title" = "Moplug Send Motion";
+"Successfully sent '%@' to Motion" = "'%@' をMotionに正常に送信しました";
+"Error alert title" = "Moplug Send Motion";
+"Moplug Send Motion - Select FCPXML File" = "Moplug Send Motion - FCPXMLファイルを選択";
+"Choose an FCPXML file to send to Motion" = "Motionに送信するFCPXMLファイルを選択してください";
+"Please select a valid FCPXML or Motion project file." = "有効なFCPXMLまたはMotionプロジェクトファイルを選択してください。";
+"DEBUG: Polling attempt %d/60 (waiting for Final Cut Pro export...)" = "DEBUG: ポーリング試行 %d/60 (Final Cut Proのエクスポートを待機中...)";
+"DEBUG: Files received after %d seconds! Processing..." = "DEBUG: %d秒後にファイルを受信しました! 処理中...";
+"DEBUG: Polling timeout after 60 seconds - no files received, terminating" = "DEBUG: 60秒後にポーリングがタイムアウトしました - ファイルが受信されなかったため、終了します";

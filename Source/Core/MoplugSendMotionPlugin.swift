@@ -59,13 +59,65 @@ class MoplugApplication: NSApplication {
             }
             pendingFiles.removeAll()
         } else {
-            // No files provided
-            NSLog("DEBUG: No pending files - waiting for Apple Event")
+            // No files provided, show welcome window
+            DispatchQueue.main.async {
+                self.showWelcomeWindow()
+            }
         }
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         return true
+    }
+
+    func showWelcomeWindow() {
+        // Create welcome window
+        let window = NSWindow(
+            contentRect: NSRect(x: 0, y: 0, width: 500, height: 300),
+            styleMask: [.titled, .closable, .miniaturizable],
+            backing: .buffered,
+            defer: false
+        )
+        window.title = NSLocalizedString("Moplug Send Motion", comment: "Window title")
+        window.center()
+
+        // Create view
+        let contentView = NSView(frame: window.contentView!.bounds)
+
+        // Title label
+        let titleLabel = NSTextField(labelWithString: NSLocalizedString("Moplug Send Motion", comment: "Welcome window title"))
+        titleLabel.font = NSFont.systemFont(ofSize: 24, weight: .bold)
+        titleLabel.frame = NSRect(x: 50, y: 220, width: 400, height: 35)
+        titleLabel.alignment = .center
+        contentView.addSubview(titleLabel)
+
+        // Description label
+        let descLabel = NSTextField(labelWithString: NSLocalizedString("Send FCPXML to Motion", comment: "Welcome window description"))
+        descLabel.font = NSFont.systemFont(ofSize: 14, weight: .regular)
+        descLabel.frame = NSRect(x: 50, y: 180, width: 400, height: 20)
+        descLabel.alignment = .center
+        contentView.addSubview(descLabel)
+
+        // Select File button
+        let selectButton = NSButton(frame: NSRect(x: 175, y: 100, width: 150, height: 40))
+        selectButton.title = NSLocalizedString("Select File", comment: "Select File button")
+        selectButton.bezelStyle = .rounded
+        selectButton.target = self
+        selectButton.action = #selector(selectFileButtonClicked)
+        contentView.addSubview(selectButton)
+
+        // Quit button
+        let quitButton = NSButton(frame: NSRect(x: 175, y: 50, width: 150, height: 30))
+        quitButton.title = NSLocalizedString("Quit", comment: "Quit button")
+        quitButton.bezelStyle = .rounded
+        quitButton.target = self
+        quitButton.action = #selector(quitButtonClicked)
+        contentView.addSubview(quitButton)
+
+        window.contentView = contentView
+        mainWindow = window
+        window.makeKeyAndOrderFront(nil)
+        NSApp.activate(ignoringOtherApps: true)
     }
 
     func showMainWindow(with fileURL: URL) {
@@ -80,28 +132,28 @@ class MoplugApplication: NSApplication {
             backing: .buffered,
             defer: false
         )
-        window.title = "Moplug Send Motion"
+        window.title = NSLocalizedString("Moplug Send Motion", comment: "Main window title")
         window.center()
 
         // Create view with info and continue button
         let contentView = NSView(frame: window.contentView!.bounds)
 
         // Title label
-        let titleLabel = NSTextField(labelWithString: "Ready to Send to Motion")
+        let titleLabel = NSTextField(labelWithString: NSLocalizedString("Ready to Send to Motion", comment: "Main window title label"))
         titleLabel.font = NSFont.systemFont(ofSize: 18, weight: .bold)
         titleLabel.frame = NSRect(x: 50, y: 200, width: 400, height: 30)
         titleLabel.alignment = .center
         contentView.addSubview(titleLabel)
 
         // File info label
-        let fileLabel = NSTextField(labelWithString: "File: \(fileURL.lastPathComponent)")
+        let fileLabel = NSTextField(labelWithString: String(format: NSLocalizedString("File: %@", comment: "File info label"), fileURL.lastPathComponent))
         fileLabel.frame = NSRect(x: 50, y: 150, width: 400, height: 20)
         fileLabel.alignment = .center
         contentView.addSubview(fileLabel)
 
         // Continue button
         let continueButton = NSButton(frame: NSRect(x: 175, y: 80, width: 150, height: 40))
-        continueButton.title = "Continue"
+        continueButton.title = NSLocalizedString("Continue", comment: "Continue button")
         continueButton.bezelStyle = .rounded
         continueButton.target = self
         continueButton.action = #selector(continueButtonClicked)
@@ -109,7 +161,7 @@ class MoplugApplication: NSApplication {
 
         // Cancel button
         let cancelButton = NSButton(frame: NSRect(x: 175, y: 40, width: 150, height: 30))
-        cancelButton.title = "Cancel"
+        cancelButton.title = NSLocalizedString("Cancel", comment: "Cancel button")
         cancelButton.bezelStyle = .rounded
         cancelButton.target = self
         cancelButton.action = #selector(cancelButtonClicked)
@@ -133,6 +185,26 @@ class MoplugApplication: NSApplication {
     @objc func cancelButtonClicked() {
         mainWindow?.close()
         mainWindow = nil
+        NSApp.terminate(nil)
+    }
+
+    @objc func selectFileButtonClicked() {
+        let panel = NSOpenPanel()
+        panel.allowsMultipleSelection = false
+        panel.canChooseDirectories = false
+        panel.canChooseFiles = true
+        panel.allowedContentTypes = [.init(filenameExtension: "fcpxml")!]
+
+        panel.begin { response in
+            if response == .OK, let url = panel.url {
+                self.mainWindow?.close()
+                self.mainWindow = nil
+                self.showMainWindow(with: url)
+            }
+        }
+    }
+
+    @objc func quitButtonClicked() {
         NSApp.terminate(nil)
     }
 
@@ -223,16 +295,16 @@ class MoplugApplication: NSApplication {
             // Try to find FCPXML in the same directory
             let fcpxmlURL = fileURL.deletingPathExtension().appendingPathExtension("fcpxml")
             if FileManager.default.fileExists(atPath: fcpxmlURL.path) {
-                NSLog("Moplug Send Motion: Found FCPXML at \(fcpxmlURL.path)")
+                os_log("Moplug Send Motion: Found FCPXML at %{public}@", log: OSLog.default, type: .info, fcpxmlURL.path)
                 processAndOpenInMotion(fileURL: fcpxmlURL)
                 return
             } else {
                 DispatchQueue.main.async {
                     let alert = NSAlert()
-                    alert.messageText = "FCPXML Not Found"
-                    alert.informativeText = "Please use 'File > Export XML' in Final Cut Pro to get FCPXML, then drag and drop it to Moplug Send Motion."
+                    alert.messageText = NSLocalizedString("FCPXML Not Found", comment: "Alert title for FCPXML not found")
+                    alert.informativeText = NSLocalizedString("Please use 'File > Export XML' in Final Cut Pro to get FCPXML, then drag and drop it to Moplug Send Motion.", comment: "Alert message for FCPXML not found")
                     alert.alertStyle = .warning
-                    alert.addButton(withTitle: "OK")
+                    alert.addButton(withTitle: NSLocalizedString("OK", comment: "OK button"))
                     alert.runModal()
                     NSApp.terminate(nil)
                 }
@@ -243,7 +315,7 @@ class MoplugApplication: NSApplication {
         do {
             // Read FCPXML file
             let xmlString = try String(contentsOf: fileURL, encoding: .utf8)
-            NSLog("Moplug Send Motion: Read FCPXML, length: \(xmlString.count)")
+            NSLog(NSLocalizedString("Moplug Send Motion: Read FCPXML, length: %d", comment: "Log message for reading FCPXML"), xmlString.count)
 
             // Parse FCPXML
             let parser = FCPXMLParser()
@@ -259,16 +331,16 @@ class MoplugApplication: NSApplication {
 
             guard let xmlData = motionXML.data(using: .utf8) else {
                 throw NSError(domain: "com.moplug.sendmotion", code: -1,
-                            userInfo: [NSLocalizedDescriptionKey: "Failed to encode XML"])
+                            userInfo: [NSLocalizedDescriptionKey: NSLocalizedString("Failed to encode XML", comment: "Error message for XML encoding failure")])
             }
 
-            // Save to temporary location and open in Motion
-            let tempDir = FileManager.default.temporaryDirectory
+            // Create output directory in Movies folder
+            let moviesDir = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Movies")
             let motionFileName = fileURL.deletingPathExtension().lastPathComponent + ".motn"
-            let saveURL = tempDir.appendingPathComponent(motionFileName)
+            let saveURL = moviesDir.appendingPathComponent(motionFileName)
 
             try xmlData.write(to: saveURL)
-            NSLog("Moplug Send Motion: Successfully wrote Motion project to \(saveURL.path)")
+            os_log("Moplug Send Motion: Successfully wrote Motion project to %{public}@", log: OSLog.default, type: .info, saveURL.path)
 
             // Open in Motion
             DispatchQueue.main.async {
@@ -280,9 +352,9 @@ class MoplugApplication: NSApplication {
             }
 
         } catch {
-            NSLog("Moplug Send Motion: Error processing FCPXML: \(error)")
+            os_log("Moplug Send Motion: Error processing FCPXML: %{public}@", log: OSLog.default, type: .error, error.localizedDescription)
             DispatchQueue.main.async {
-                self.showError("Failed to process FCPXML: \(error.localizedDescription)")
+                self.showError(String(format: NSLocalizedString("Failed to process FCPXML: %@", comment: "Error message for FCPXML processing failure"), error.localizedDescription))
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
                     NSApp.terminate(nil)
                 }
@@ -299,21 +371,21 @@ class MoplugApplication: NSApplication {
             let configuration = NSWorkspace.OpenConfiguration()
             workspace.open([fileURL], withApplicationAt: motionURL, configuration: configuration) { _, error in
                 if let error = error {
-                    NSLog("Moplug Send Motion: Failed to open Motion: \(error)")
+                    os_log("Moplug Send Motion: Failed to open Motion: %{public}@", log: OSLog.default, type: .error, error.localizedDescription)
                 }
             }
         } else {
-            NSLog("Moplug Send Motion: Motion not found")
-            showError("Motion app not found. Please install Motion.")
+            os_log("Moplug Send Motion: Motion not found", log: OSLog.default, type: .error)
+            showError(NSLocalizedString("Motion app not found. Please install Motion.", comment: "Error message when Motion app is not found"))
         }
     }
 
     private func showError(_ message: String) {
         let alert = NSAlert()
-        alert.messageText = "Moplug Send Motion"
+        alert.messageText = NSLocalizedString("Moplug Send Motion", comment: "Error alert title")
         alert.informativeText = message
         alert.alertStyle = .warning
-        alert.addButton(withTitle: "OK")
+        alert.addButton(withTitle: NSLocalizedString("OK", comment: "OK button"))
         alert.runModal()
     }
 }

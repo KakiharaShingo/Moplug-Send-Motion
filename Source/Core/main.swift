@@ -1,12 +1,13 @@
 import Cocoa
 
-// Ensure the application is activated
-NSApplication.shared.setActivationPolicy(.regular)
+let app = MoplugApplication.shared as! MoplugApplication
+let appDelegate = MoplugAppDelegate()
 
-// Set up the application
-let app = NSApplication.shared
-let delegate = MoplugAppDelegate()
-app.delegate = delegate
+// Ensure the application is activated
+app.setActivationPolicy(.regular)
+
+// Set up the application delegate
+app.delegate = appDelegate
 
 // Activate the app
 app.activate(ignoringOtherApps: true)

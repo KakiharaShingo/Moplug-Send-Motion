@@ -8,7 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		2839D1C02EAD3BC200A336FC /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2839D1BF2EAD3BC200A336FC /* main.swift */; };
-		2839D1C22EAD3BE300A336FC /* OSAScriptingDefinition.sdef in Resources */ = {isa = PBXBuildFile; fileRef = 2839D1C12EAD3BE300A336FC /* OSAScriptingDefinition.sdef */; };
+		28D911B42EB34391004A1E6F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 28D911AF2EB34391004A1E6F /* InfoPlist.strings */; };
+		28D911B52EB34391004A1E6F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 28D911B12EB34391004A1E6F /* Localizable.strings */; };
+		28D911B62EB34391004A1E6F /* OSAScriptingDefinition.sdef in Resources */ = {isa = PBXBuildFile; fileRef = 28D911B22EB34391004A1E6F /* OSAScriptingDefinition.sdef */; };
+		28D911B72EB34391004A1E6F /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 28D911B82EB34391004A1E6F /* AppIcon.icns */; };
 		A1000001275B4A8700000001 /* MoplugSendMotionPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000275B4A8700000001 /* MoplugSendMotionPlugin.swift */; };
 		A1000003275B4A8700000002 /* FCPXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002275B4A8700000002 /* FCPXMLParser.swift */; };
 		A1000005275B4A8700000003 /* MotionProjectGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000004275B4A8700000003 /* MotionProjectGenerator.swift */; };
@@ -19,6 +22,10 @@
 /* Begin PBXFileReference section */
 		2839D1BF2EAD3BC200A336FC /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = main.swift; path = Source/Core/main.swift; sourceTree = "<group>"; };
 		2839D1C12EAD3BE300A336FC /* OSAScriptingDefinition.sdef */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = OSAScriptingDefinition.sdef; path = Source/Resources/OSAScriptingDefinition.sdef; sourceTree = "<group>"; };
+		28D911AE2EB34391004A1E6F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		28D911B02EB34391004A1E6F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		28D911B22EB34391004A1E6F /* OSAScriptingDefinition.sdef */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = OSAScriptingDefinition.sdef; sourceTree = "<group>"; };
+		28D911B82EB34391004A1E6F /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
 		A1000000275B4A8700000001 /* MoplugSendMotionPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoplugSendMotionPlugin.swift; sourceTree = "<group>"; };
 		A1000002275B4A8700000002 /* FCPXMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCPXMLParser.swift; sourceTree = "<group>"; };
 		A1000004275B4A8700000003 /* MotionProjectGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionProjectGenerator.swift; sourceTree = "<group>"; };
@@ -38,6 +45,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		28D911B32EB34391004A1E6F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				28D911AF2EB34391004A1E6F /* InfoPlist.strings */,
+				28D911B12EB34391004A1E6F /* Localizable.strings */,
+				28D911B22EB34391004A1E6F /* OSAScriptingDefinition.sdef */,
+				28D911B82EB34391004A1E6F /* AppIcon.icns */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		A1111100275B4A8700000000 = {
 			isa = PBXGroup;
 			children = (
@@ -51,6 +69,7 @@
 		A1111101275B4A8700000000 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				28D911B32EB34391004A1E6F /* Resources */,
 				A1111103275B4A8700000000 /* Core */,
 				A1111104275B4A8700000000 /* Parser */,
 				A1111105275B4A8700000000 /* Generator */,
@@ -120,7 +139,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 1630;
 				TargetAttributes = {
 					A1111111275B4A8700000001 = {
 						CreatedOnToolsVersion = 15.0;
@@ -134,6 +153,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				ja,
 			);
 			mainGroup = A1111100275B4A8700000000;
 			productRefGroup = A1111102275B4A8700000000 /* Products */;
@@ -150,7 +170,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2839D1C22EAD3BE300A336FC /* OSAScriptingDefinition.sdef in Resources */,
+				28D911B42EB34391004A1E6F /* InfoPlist.strings in Resources */,
+				28D911B52EB34391004A1E6F /* Localizable.strings in Resources */,
+				28D911B62EB34391004A1E6F /* OSAScriptingDefinition.sdef in Resources */,
+				28D911B72EB34391004A1E6F /* AppIcon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,12 +195,32 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXVariantGroup section */
+		28D911AF2EB34391004A1E6F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				28D911AE2EB34391004A1E6F /* ja */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		28D911B12EB34391004A1E6F /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				28D911B02EB34391004A1E6F /* ja */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		A1111114275B4A8700000001 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -207,6 +250,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -229,7 +273,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -241,6 +285,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -270,6 +315,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -299,6 +345,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Motion.app/Contents/Frameworks,
@@ -333,6 +380,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Motion.app/Contents/Frameworks,
